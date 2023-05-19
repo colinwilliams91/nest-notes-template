@@ -22,9 +22,23 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## Developer Notes:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+_Ex:_ _To implement new entity/resource with exposed CRUD endpoints_
+
+- Generate a module (`nest g mo`) to keep code organized and establish clear boundaries (grouping related components)
+- Generate a controller (`nest g co`) to define CRUD routes (or queries/mutations for GraphQL applications)
+- Generate a service (`nest g s`) to implement & isolate business logic
+- Generate an entity class/interface to represent the resource data shape
+- Generate Data Transfer Objects (or inputs for GraphQL applications) to define how the data will be sent over the network
+
+### OR
+
+- To create a new resource, simply run the following command in the root directory of your project:
+- `nest g resource`
+- Above command not only generates all the NestJS building blocks (module, service, controller classes) but also an entity class, DTO classes as well as the testing (.spec) files.
+
+[Nest CLI resource generation docs:](https://docs.nestjs.com/recipes/crud-generator#crud-generator)
 
 ## Installation
 
