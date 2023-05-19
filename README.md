@@ -22,7 +22,7 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Developer Notes:
+# Developer Notes:
 
 _Ex:_ _To implement new entity/resource with exposed CRUD endpoints_
 
@@ -39,6 +39,10 @@ _Ex:_ _To implement new entity/resource with exposed CRUD endpoints_
 - Above command not only generates all the NestJS building blocks (module, service, controller classes) but also an entity class, DTO classes as well as the testing (.spec) files.
 
 [Nest CLI resource generation docs:](https://docs.nestjs.com/recipes/crud-generator#crud-generator)
+
+_Ex:_ _Controller response object exposure_
+
+Nest detects when the handler is using either @Res() (<-- injectable decorators -->) or @Next(), indicating you have chosen the library-specific option. If both approaches are used at the same time, the Standard approach is automatically disabled for this single route and will no longer work as expected. To use both approaches at the same time (for example, by injecting the response object to only set cookies/headers but still leave the rest to the framework), you must set the passthrough option to true in the @Res({ passthrough: true }) decorator.
 
 ## Installation
 
