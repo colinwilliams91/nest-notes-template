@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { CoffeesController } from './coffees/coffees.controller';
 
 /*
  * the @Module Decorator provides metadata responsible for organizing application structure
@@ -23,6 +24,7 @@ import { AppService } from './app.service';
  * When you want to provide a set of providers which should be available everywhere out-of-the-box
  * (e.g., helpers, database connections, etc.), make the module global with the @Global() decorator.
  * `import { Module, Global } from '@nestjs/common';` If we use `@Global()` module should only be registered
+import { CoffeesController } from './coffees/coffees.controller';
  * once, and modules that wish to inject services from it would not need to register in their `imports []`
  *
  * for [Dynamic Modules](https://docs.nestjs.com/fundamentals/dynamic-modules)
@@ -33,6 +35,7 @@ import { AppService } from './app.service';
   imports: [],
   controllers: [
     AppController,
+    CoffeesController,
   ] /* <-- instantiate consumer/router of service classes encapsulated by this module */,
   providers: [
     AppService,

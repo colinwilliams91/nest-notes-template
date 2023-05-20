@@ -9,7 +9,7 @@ import { AppService } from './app.service';
 /* import { Request, Response } from 'express'; */ /* <-- import express methods to access ** see below */
 
 /* [Controllers](https://docs.nestjs.com/controllers)
- * a basic controller with a single route
+ * "where specific requests are handled by application"
  * responsible for handling incoming requests and returning resposnes to the client
  *
  * CLI: `nest g controller [name]` to generate controller...
@@ -34,10 +34,10 @@ export class AppController {
   }
 
   @Get() /* <-- GET HTTP method decorator, optional PATH param will be concat with PREFIX param (defaults '/') */
-  @Render('index') /* <-- main.ts for `views/index.html` entry declaration */
+  // @Render('index') /* <-- main.ts for `views/index.html` entry declaration */
   root() {
-    return { message: 'Root Render' };
-    // return this.appService.getHello(); /* <-- equivalent to res.status(200).send(getHello(): string) (built-in) */
+    // return { message: 'Root Render' };
+    return this.appService.getHello(); /* <-- equivalent to res.status(200).send(getHello(): string) (built-in) */
   }
 }
 

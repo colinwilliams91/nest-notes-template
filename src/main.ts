@@ -16,9 +16,9 @@ import { join } from 'path';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule); // <-- Type allows exclusive Express methods
 
-  app.useStaticAssets(join(__dirname, '..', 'public')); // <-- for shared image/static assets
-  app.setBaseViewsDir(join(__dirname, '..', 'views')); // <-- for `index.html` / views (components?)
-  app.setViewEngine('hbs');
+  // app.useStaticAssets(join(__dirname, '..', 'public')); // <-- for shared image/static assets
+  // app.setBaseViewsDir(join(__dirname, '..', 'views')); // <-- for `index.html` / views (components?)
+  // app.setViewEngine('hbs');
 
   await app.listen(3000);
 }
