@@ -22,6 +22,16 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
+## -- [SOLID](https://en.wikipedia.org/wiki/SOLID) -- Nest's Object Oriented Organizational Methodology
+
+- S - Single-Responsibility Principle - "Every class should have only one responsibility."
+
+- O - Open-Closed Principle - "Software Entities are open for extension, but closed for modification."
+
+- L - Liskov Substitution Principle - "Functions that use pointers or references to base classes must be able to use objects of derived classes without knowing it."
+- I - Interface Segregation Principle - "Clients should not be forced to depend upon interfaces that they do not use."
+- D - Dependency Inversion Principle - "Depend upon abstractions, not concretions."
+
 # Developer Notes:
 
 _Ex:_ _To implement new entity/resource with exposed CRUD endpoints_

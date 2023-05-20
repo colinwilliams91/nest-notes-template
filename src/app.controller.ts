@@ -14,9 +14,8 @@ import { AppService } from './app.service';
  * CLI: `nest g controller [name]` to generate controller...
  * CLI: `nest g resource [name]` to generate controller w/ built in validation
  *
- * Controller Decorator required to define controller associates class w/ required metadata
- * required to define controller associates class w/ required metadata to enable Nest to create routing map
- * (routing map ties requests to corresponding controllers)
+ * Controller Decorator required to define controller, associates class w/ required metadata
+ * to enable Nest to create routing map (routing map ties requests to corresponding controllers)
  *
  * if we pass 'cats' as arg to `Controller('cats')` <-- specifies optional "path prefix"
  * no longer need to specify that portion of path for each route in this file: route `/cats`
