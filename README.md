@@ -44,6 +44,8 @@ _Ex:_ _Controller response object exposure_
 
 Nest detects when the handler is using either @Res() (<-- injectable decorators -->) or @Next(), indicating you have chosen the library-specific option. If both approaches are used at the same time, the Standard approach is automatically disabled for this single route and will no longer work as expected. To use both approaches at the same time (for example, by injecting the response object to only set cookies/headers but still leave the rest to the framework), you must set the passthrough option to true in the @Res({ passthrough: true }) decorator.
 
+# Contribution
+
 ## Installation
 
 ```bash
