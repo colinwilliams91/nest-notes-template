@@ -1,5 +1,6 @@
 import {
   Controller,
+  Render,
   Get,
   Post,
 } from '@nestjs/common'; /* <-- import injectable decorators */
@@ -21,7 +22,9 @@ import { AppService } from './app.service';
  * no longer need to specify that portion of path for each route in this file: route `/cats`
  */
 
-@Controller() /* <-- Decorator for AppController Class, optional path prefix param */
+/* <-- Routes to DB in Controller ?? --> */
+
+@Controller() /* <-- Decorator for AppController Class, optional path PREFIX param */
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
@@ -30,9 +33,11 @@ export class AppController {
     return 'this action adds a new element';
   }
 
-  @Get() /* <-- GET HTTP method decorator, optional path param will be concat with prefix param */
-  getHello(): string {
-    return this.appService.getHello(); /* <-- equivalent to res.status(200).send(getHello(): string) (built-in) */
+  @Get() /* <-- GET HTTP method decorator, optional PATH param will be concat with PREFIX param (defaults '/') */
+  @Render('index') /* <-- main.ts for `views/index.html` entry declaration */
+  root() {
+    return { message: 'Root Render' };
+    // return this.appService.getHello(); /* <-- equivalent to res.status(200).send(getHello(): string) (built-in) */
   }
 }
 

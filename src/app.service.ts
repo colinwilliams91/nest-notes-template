@@ -5,6 +5,8 @@ import { Injectable } from '@nestjs/common'; /* <-- `@Injectable` Decorator atta
  * Providers are defined as `@Injectable` Classes that will
  * carry and help assign methods to where they are needed
  *
+ * we will access data within services files
+ *
  * CLI: `nest g service [name]`
  *
  */

@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express'; // <-- to access underlying platform API
+import { join } from 'path';
 
 /*
  * the entry file of the application which uses the core function NestFactory to create a Nest application instance
@@ -14,6 +15,11 @@ import { NestExpressApplication } from '@nestjs/platform-express'; // <-- to acc
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule); // <-- Type allows exclusive Express methods
+
+  app.useStaticAssets(join(__dirname, '..', 'public')); // <-- for shared image/static assets
+  app.setBaseViewsDir(join(__dirname, '..', 'views')); // <-- for `index.html` / views (components?)
+  app.setViewEngine('hbs');
+
   await app.listen(3000);
 }
 bootstrap();
