@@ -12,6 +12,6 @@ import { Injectable } from '@nestjs/common'; /* <-- `@Injectable` Decorator atta
 @Injectable()
 export class AppService {
   getHello(): string {
-    return 'Hello World!';
+    return '<h1>Hello World!</h1>';
   }
 }
