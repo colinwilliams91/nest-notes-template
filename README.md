@@ -54,6 +54,29 @@ _Ex:_ _Controller response object exposure_
 
 Nest detects when the handler is using either @Res() (<-- injectable decorators -->) or @Next(), indicating you have chosen the library-specific option. If both approaches are used at the same time, the Standard approach is automatically disabled for this single route and will no longer work as expected. To use both approaches at the same time (for example, by injecting the response object to only set cookies/headers but still leave the rest to the framework), you must set the passthrough option to true in the @Res({ passthrough: true }) decorator.
 
+_Ex:_ _Docker YAML and start-up_
+
+```js
+/* YAML docker-compose.yml configuration file */
+version: "3"
+services:
+  db:
+    image:  postgres // image to create db
+    restart: always
+    ports: // `port:port` allows access inside and outside docker
+      - "5432:5432"
+    environment:
+       POSTGRES_PASSWORD: pass123
+
+// Start containers in detached / background mode
+docker-compose up -d
+// `docker-compose up [db] -d // <-- to start specific `service`
+// ...if no services specified, will start all `services` in YAML
+
+// Stop containers
+docker-compose down
+```
+
 # Contribution
 
 ## Installation
@@ -88,15 +111,33 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
+# Database
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## This codebase has a SQL (PostgreSQL & TypeORM) branch && a NoSQL (MongoDB & Mongoose)
 
-## Stay in touch
+## _SQL_
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- _DEPENDENCIES_: @nestjs/typeorm typeorm pg
+- _RUN_: `$ docker exec -tiu postgres secret-stories-db-1 psql` <-- for psql shell
+- `docker exec`: <-- runs a command inside a Docker container
+- `-t`: <-- allows interaction with CLI of container
+- `-i`: <-- (`--interactive`) keeps the STDIN (standard input) open, even if not attached, allows us to provide input to the container's command
+- `-u`: <-- specifies user/username context, ensures command `psql` is run as [username]
+- `postgres`: <-- provided [username] to match PostgreSQL connection (TypeOrmModule.forRoot({...}))
+- `secret-stories-db-1`: <-- docker container name, found in `$ docker-compose up -d` terminal
+- `psql`: <-- [command] to execute
+
+### _COMMANDS_
+
+- `postgres=# \du`: <-- shows user information
+- `postgres=# \l`: <-- shows databases
+- `postgres=# \c [database]`: <-- connect to && use db
+- `postgres=# \dt`: <-- list tables from current schema
+- `postgres=# \d [table]`: <-- show table definition
+
+[MORE PSQL CLI COMMANDS](https://postgrescheatsheet.com/#/tables)
+
+## _NoSQL_:
 
 ## License
 

@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { CoffeesController } from './coffees/coffees.controller';
 import { CoffeesModule } from './coffees/coffees.module';
 import { CoffeesService } from './coffees/coffees.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 /*
  * the @Module Decorator provides metadata responsible for organizing application structure
@@ -35,7 +36,20 @@ import { CoffeesController } from './coffees/coffees.controller';
 
 /* <-- `@Global()` Decorator would go here */
 @Module({
-  imports: [CoffeesModule],
+  imports: [
+    CoffeesModule,
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost', // <-- switch for PROUCTION? (ENV)
+      port: 5432, // <-- port set in `docker-compose.yml`
+      username: 'postgres', // <-- default (not currently set in `docker-compose.yml`)
+      password: 'pass123', // <-- `docker-compose.yml`
+      database: 'postgres', // <-- initializes db & db name
+      autoLoadEntities: true, // <-- loads Modules automatically without `entities` array
+      synchronize: true, // <-- syncs typeorm entities w/ databases on every application run (DISABLE for PRODUCTION)
+      // `synchronize` generates a SQL Table for all classes that contain `@Entity()` Decorator (and metadata they contain)
+    }),
+  ],
   controllers: [
     AppController,
   ] /* <-- instantiate consumer/router of service classes encapsulated by this module */,

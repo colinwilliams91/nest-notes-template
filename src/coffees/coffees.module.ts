@@ -1,6 +1,12 @@
 import { Module } from '@nestjs/common';
 import { CoffeesController } from './coffees.controller';
 import { CoffeesService } from './coffees.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Coffee } from './entities/coffee.entity';
 
-@Module({ controllers: [CoffeesController], providers: [CoffeesService] })
+@Module({
+  imports: [TypeOrmModule.forFeature([Coffee])], // <-- registers Type Orm in this module, array of Entities to be registered
+  controllers: [CoffeesController],
+  providers: [CoffeesService],
+})
 export class CoffeesModule {}
