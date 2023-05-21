@@ -15,7 +15,7 @@ import { Event } from '../events/entities/event.entity/event.entity';
 
 /* `this.coffees` is placeholder for DB Table  */
 
-@Injectable()
+@Injectable() // <-- Marks CoffeesService Class as a provider (metadata)
 export class CoffeesService {
   constructor(
     @InjectRepository(Coffee) // <-- Injects automatically generated Repository that sits on top of our Table

@@ -33,4 +33,4 @@ async function bootstrap() {
 
   await app.listen(3000);
 }
-bootstrap();
+bootstrap(); // <-- Nest Inversion of Control (IoC) Tracks Dependencies (Services) and Registers to Controllers and Modules

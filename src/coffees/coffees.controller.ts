@@ -19,7 +19,7 @@ import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/paginati
 
 @Controller('coffees') // <-- Service Injection occurs in Constructor
 export class CoffeesController {
-  constructor(private readonly coffeesService: CoffeesService) {}
+  constructor(private readonly coffeesService: CoffeesService) {} // <-- requesting CoffeesService here (Nest Injection)
   /* NOTE:  `private` "access modifier - TypeScript shorthand, declares and initializes service and makes exclusive to class */
   /* NOTE:  `readonly` best practice - explicitly states we will only use, not modify here */
   /* NOTE: typing parameter (`: CoffeeService`) resolves dependency/service creates and returns Instance to our Controller

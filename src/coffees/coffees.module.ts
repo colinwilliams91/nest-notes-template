@@ -9,6 +9,6 @@ import { Event } from '../events/entities/event.entity/event.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Coffee, Flavor, Event])], // <-- registers Type Orm in this module, array of Entities to be registered
   controllers: [CoffeesController],
-  providers: [CoffeesService],
-})
+  providers: [CoffeesService], // <-- Registers Provider with Nest IoC(Inversion of Control) Container)
+}) // ...think of Providers as Module's API
 export class CoffeesModule {}
