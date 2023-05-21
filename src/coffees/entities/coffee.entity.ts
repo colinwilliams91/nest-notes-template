@@ -19,7 +19,9 @@ export class Coffee {
   brand: string;
 
   // @Column('json', { nullable: true }) // <-- stores column data as `json` && makes optional
+  // `{ cascade: true }` <-- flavors that belong to a newly created Coffee will be automatically inserted into DB
+  // GO TO: `dto/create-coffee.dto.ts` and map `flavors` strings to _real_ entities (instances of a Flavor Entity)
   @JoinTable()
-  @ManyToMany((type) => Flavor, (flavor) => flavor.coffees)
-  flavors: string[];
+  @ManyToMany((type) => Flavor, (flavor) => flavor.coffees, { cascade: true }) // <-- enable cascading for inserts and updates
+  flavors: Flavor[];
 }
