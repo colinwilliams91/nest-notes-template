@@ -14,6 +14,7 @@ import { AppService } from './app.service';
  *
  * CLI: `nest g controller [name]` to generate controller...
  * CLI: `nest g resource [name]` to generate controller w/ built in validation
+ * CLI: `nest g class coffees/dto/create-coffee.dto --no-spec` to generate DTO (Data Transfer Object/Payload Template)
  *
  * Controller Decorator required to define controller, associates class w/ required metadata
  * to enable Nest to create routing map (routing map ties requests to corresponding controllers)

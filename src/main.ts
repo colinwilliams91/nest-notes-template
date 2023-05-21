@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express'; // <-- to access underlying platform API
+import { ValidationPipe } from '@nestjs/common';
 import { join } from 'path';
 
 /*
@@ -15,6 +16,13 @@ import { join } from 'path';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule); // <-- Type allows exclusive Express methods
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true, // <-- transforms DTOs properties datatypes to intended types (defaults transfer as Strings if not)
+      whitelist: true, // <-- disallow users entering invalid properties to DTOs (invalid will be stripped/removed)
+      forbidNonWhitelisted: true, // <-- disallows users by _stopping_ Payload process (throws error)
+    }),
+  ); // <-- enforces validation rules for all incoming client Payloads automatically (body shapes)
 
   // app.useStaticAssets(join(__dirname, '..', 'public')); // <-- for shared image/static assets
   // app.setBaseViewsDir(join(__dirname, '..', 'views')); // <-- for `index.html` / views (components?)

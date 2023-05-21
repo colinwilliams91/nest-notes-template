@@ -2,13 +2,15 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CoffeesController } from './coffees/coffees.controller';
+import { CoffeesModule } from './coffees/coffees.module';
+import { CoffeesService } from './coffees/coffees.service';
 
 /*
  * the @Module Decorator provides metadata responsible for organizing application structure
 
  * the root module of the application
  * every Nest application's root module is used to build the "application graph"
- * which is the internat data structure Nest uses to resolve module and provider relationships & dependencies
+ * which is the internal data structure Nest uses to resolve module and provider relationships & dependencies
  *
  * CLI: `nest g module [name]`
  *
@@ -16,7 +18,8 @@ import { CoffeesController } from './coffees/coffees.controller';
  * each module will take a single object argument whose properties describe the module:
  * --
  * IMPORTS: the list of imported modules that export the providers which are required in this module
- * PROVIDERS: the providers/services that will be instantiated by the Nest injector and that may be shared at least across this module
+ * PROVIDERS: the providers/services that will be instantiated by the Nest injector and that may be shared
+ * at least across this module (Services that need to be intantiated for the Nest Injector)
  * CONTROLLERS: the set of controllers defined in this module which have to be instantiated
  * EXPORTS: the subset of providers that are provided by this module and should be available in other modules which import
  * this module. You can use either the provider itself or just its token ( provide value )
@@ -32,14 +35,13 @@ import { CoffeesController } from './coffees/coffees.controller';
 
 /* <-- `@Global()` Decorator would go here */
 @Module({
-  imports: [],
+  imports: [CoffeesModule],
   controllers: [
     AppController,
-    CoffeesController,
   ] /* <-- instantiate consumer/router of service classes encapsulated by this module */,
   providers: [
     AppService,
-  ] /* <-- register Provider(service) so Nest can perform injections for Consumers (ex: `app.controller.ts`) */,
+  ] /* <-- register Provider(service) so Nest can inject dependencies from Class for Consumers (ex: `app.controller.ts`) */,
 })
 export class AppModule {}
 

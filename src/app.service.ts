@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common'; /* <-- `@Injectable` Decorator atta
 
 /*
  * Services to provide methods throughout application.
+ * -- Providers/Services handle business logic as well as interactions with data sources -- WHERE DB INTERACTIONS HAPPEN
  * Providers are defined as `@Injectable` Classes that will
  * carry and help assign methods to where they are needed
  *
