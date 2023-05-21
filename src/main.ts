@@ -21,6 +21,9 @@ async function bootstrap() {
       transform: true, // <-- transforms DTOs properties datatypes to intended types (defaults transfer as Strings if not)
       whitelist: true, // <-- disallow users entering invalid properties to DTOs (invalid will be stripped/removed)
       forbidNonWhitelisted: true, // <-- disallows users by _stopping_ Payload process (throws error)
+      transformOptions: {
+        enableImplicitConversion: true, // <-- converts DTO datatypes from string to implied types globally (risk performance)
+      },
     }),
   ); // <-- enforces validation rules for all incoming client Payloads automatically (body shapes)
 
