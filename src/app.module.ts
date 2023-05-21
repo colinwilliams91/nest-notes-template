@@ -1,13 +1,17 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { CoffeesController } from './coffees/coffees.controller';
+import { CoffeesModule } from './coffees/coffees.module';
+import { CoffeesService } from './coffees/coffees.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 /*
  * the @Module Decorator provides metadata responsible for organizing application structure
 
  * the root module of the application
  * every Nest application's root module is used to build the "application graph"
- * which is the internat data structure Nest uses to resolve module and provider relationships & dependencies
+ * which is the internal data structure Nest uses to resolve module and provider relationships & dependencies
  *
  * CLI: `nest g module [name]`
  *
@@ -15,7 +19,8 @@ import { AppService } from './app.service';
  * each module will take a single object argument whose properties describe the module:
  * --
  * IMPORTS: the list of imported modules that export the providers which are required in this module
- * PROVIDERS: the providers/services that will be instantiated by the Nest injector and that may be shared at least across this module
+ * PROVIDERS: the providers/services that will be instantiated by the Nest injector and that may be shared
+ * at least across this module (Services that need to be intantiated for the Nest Injector)
  * CONTROLLERS: the set of controllers defined in this module which have to be instantiated
  * EXPORTS: the subset of providers that are provided by this module and should be available in other modules which import
  * this module. You can use either the provider itself or just its token ( provide value )
@@ -23,6 +28,7 @@ import { AppService } from './app.service';
  * When you want to provide a set of providers which should be available everywhere out-of-the-box
  * (e.g., helpers, database connections, etc.), make the module global with the @Global() decorator.
  * `import { Module, Global } from '@nestjs/common';` If we use `@Global()` module should only be registered
+import { CoffeesController } from './coffees/coffees.controller';
  * once, and modules that wish to inject services from it would not need to register in their `imports []`
  *
  * for [Dynamic Modules](https://docs.nestjs.com/fundamentals/dynamic-modules)
@@ -30,13 +36,26 @@ import { AppService } from './app.service';
 
 /* <-- `@Global()` Decorator would go here */
 @Module({
-  imports: [],
+  imports: [
+    CoffeesModule,
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost', // <-- switch for PROUCTION? (ENV)
+      port: 5432, // <-- port set in `docker-compose.yml`
+      username: 'postgres', // <-- default (not currently set in `docker-compose.yml`)
+      password: 'pass123', // <-- `docker-compose.yml`
+      database: 'postgres', // <-- initializes db & db name
+      autoLoadEntities: true, // <-- loads Modules automatically without `entities` array
+      synchronize: true, // <-- syncs typeorm entities w/ databases on every application run (DISABLE for PRODUCTION)
+      // `synchronize` generates a SQL Table for all classes that contain `@Entity()` Decorator (and metadata they contain)
+    }),
+  ],
   controllers: [
     AppController,
   ] /* <-- instantiate consumer/router of service classes encapsulated by this module */,
   providers: [
     AppService,
-  ] /* <-- register Provider(service) so Nest can perform injections for Consumers (ex: `app.controller.ts`) */,
+  ] /* <-- register Provider(service) so Nest can inject dependencies from Class for Consumers (ex: `app.controller.ts`) */,
 })
 export class AppModule {}
 
