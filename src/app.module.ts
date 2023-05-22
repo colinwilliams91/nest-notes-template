@@ -7,6 +7,7 @@ import { CoffeeRatingModule } from './coffee-rating/coffee-rating.module';
 import { CoffeesModule } from './coffees/coffees.module';
 import { CoffeesService } from './coffees/coffees.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
 
 /*
  * the @Module Decorator provides metadata responsible for organizing application structure
@@ -40,13 +41,14 @@ import { CoffeesController } from './coffees/coffees.controller';
 @Module({
   imports: [
     CoffeesModule,
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost', // <-- switch for PROUCTION? (ENV)
-      port: 5432, // <-- port set in `docker-compose.yml`
-      username: 'postgres', // <-- default (not currently set in `docker-compose.yml`)
-      password: 'pass123', // <-- `docker-compose.yml`
-      database: 'postgres', // <-- initializes db & db name
+      host: process.env.DATABASE_HOST_LOCAL, // <-- switch for PROUCTION? (ENV)
+      port: +process.env.DATABASE_PORT, // <-- port set in `docker-compose.yml` (`+` coerces to number)
+      username: process.env.DATABASE_USER, // <-- default (not currently set in `docker-compose.yml`)
+      password: process.env.DATABASE_PASSWORD, // <-- `docker-compose.yml`
+      database: process.env.DATABASE_NAME, // <-- initializes db & db name
       autoLoadEntities: true, // <-- loads Modules automatically without `entities` array
       synchronize: true, // <-- syncs typeorm entities w/ databases on every application run (DISABLE for PRODUCTION)
       // `synchronize` generates a SQL Table for all classes that contain `@Entity()` Decorator (and metadata they contain)
