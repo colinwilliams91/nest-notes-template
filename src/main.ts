@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express'; // <-- to access underlying platform API
 import { ValidationPipe } from '@nestjs/common';
 import { HttpExceptionFilter } from './common/filters/http-exception/http-exception.filter';
+import { ApiKeyGuard } from './common/guards/api-key/api-key.guard';
 import { join } from 'path';
 
 /*
@@ -32,6 +33,7 @@ async function bootstrap() {
   // app.setBaseViewsDir(join(__dirname, '..', 'views')); // <-- for `index.html` / views (components?)
   // app.setViewEngine('hbs');
   app.useGlobalFilters(new HttpExceptionFilter()); // <-- apply `filters/http-exception/http-exception.filter.ts` for global http requests
+  app.useGlobalGuards(new ApiKeyGuard()); // <-- apply global Guard here
   await app.listen(3000);
 }
 bootstrap(); // <-- Nest Inversion of Control (IoC) Tracks Dependencies (Services) and Registers to Controllers and Modules
