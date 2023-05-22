@@ -34,3 +34,8 @@ async function bootstrap() {
   await app.listen(3000);
 }
 bootstrap(); // <-- Nest Inversion of Control (IoC) Tracks Dependencies (Services) and Registers to Controllers and Modules
+
+/**
+ * Issue with setting up and Instantiating (`new`) `validationPipe({...})` in `main.ts`
+ * is it is outside any Module, therefore we CANNOT inject any dependencies here
+ */

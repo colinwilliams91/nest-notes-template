@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CoffeesController } from './coffees/coffees.controller';
@@ -10,6 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 
 import * as Joi from '@hapi/joi';
+import { APP_PIPE } from '@nestjs/core';
 
 /*
  * the @Module Decorator provides metadata responsible for organizing application structure
@@ -81,6 +82,10 @@ import { CoffeesController } from './coffees/coffees.controller';
   ] /* <-- instantiate consumer/router of service classes encapsulated by this module */,
   providers: [
     AppService,
+    // {
+    //   provide: APP_PIPE, // <-- this provider object Instantiates `ValidationPipe` inside module and registers as Global Pipe
+    //   useClass: ValidationPipe, // <-- this is best practice because NOW we can inject dependencies since inside Module
+    // },
   ] /* <-- register Provider(service) so Nest can inject dependencies from Class for Consumers (ex: `app.controller.ts`) */,
 })
 export class AppModule {}

@@ -11,11 +11,18 @@ import {
   Put,
   Query,
   Res,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto/update-coffee.dto';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/pagination-query.dto';
+
+// @UsePipes() <-- pass single Pipe Class, comma separated list of Pipe Classes,
+// or `new ValidationPipe({...}) for specific scenario Pipes (inside features, etc)
+// (best practice use Class instead of `new` Instantiations for memory useage and re-usability)
+// can be used for Controller Classes OR Route Handlers/Methods!
 
 @Controller('coffees') // <-- Service Injection occurs in Constructor
 export class CoffeesController {
@@ -25,6 +32,7 @@ export class CoffeesController {
   /* NOTE: typing parameter (`: CoffeeService`) resolves dependency/service creates and returns Instance to our Controller
    * || returns the existing instance if it has been requested already elsewhere */
 
+  // @UsePipes(ValidationPipe) example of specific route Pipe
   @Get()
   findAll(@Query() paginationQuery: PaginationQueryDto) {
     // const { limit, offset } = paginationQuery;
@@ -63,6 +71,7 @@ export class CoffeesController {
     return this.coffeesService.update(id, updateCoffeeDto);
     // return `This action updates #${id} coffee`;
   }
+  // @Body(ValidationPipe) <-- we can even pass Pipes as PARAM SCOPE (applying Pipe DTO Validation just to specific parameter)
 
   @Delete(':id')
   remove(@Param('id') id: string) {
