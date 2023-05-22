@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CoffeesController } from './coffees/coffees.controller';
+import { DatabaseModule } from './database/database.module';
+import { CoffeeRatingModule } from './coffee-rating/coffee-rating.module';
 import { CoffeesModule } from './coffees/coffees.module';
 import { CoffeesService } from './coffees/coffees.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -49,6 +51,8 @@ import { CoffeesController } from './coffees/coffees.controller';
       synchronize: true, // <-- syncs typeorm entities w/ databases on every application run (DISABLE for PRODUCTION)
       // `synchronize` generates a SQL Table for all classes that contain `@Entity()` Decorator (and metadata they contain)
     }),
+    CoffeeRatingModule,
+    DatabaseModule,
   ],
   controllers: [
     AppController,
