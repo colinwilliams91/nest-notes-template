@@ -6,6 +6,7 @@ import { HttpExceptionFilter } from './common/filters/http-exception/http-except
 import { ApiKeyGuard } from './common/guards/api-key/api-key.guard';
 import { join } from 'path';
 import { WrapResponseInterceptor } from './common/interceptors/wrap-response/wrap-response.interceptor';
+import { TimeoutInterceptor } from './common/interceptors/timeout/timeout.interceptor';
 
 /*
  * the entry file of the application which uses the core function NestFactory to create a Nest application instance
@@ -35,7 +36,10 @@ async function bootstrap() {
   // app.setViewEngine('hbs');
   app.useGlobalFilters(new HttpExceptionFilter()); // <-- apply `filters/http-exception/http-exception.filter.ts` for global http requests
   // app.useGlobalGuards(new ApiKeyGuard()); // <-- apply global Guard here (only if Argument needs NO dependencies...)
-  app.useGlobalInterceptors(new WrapResponseInterceptor());
+  app.useGlobalInterceptors(
+    new WrapResponseInterceptor(),
+    new TimeoutInterceptor(),
+  );
   await app.listen(3000);
 }
 bootstrap(); // <-- Nest Inversion of Control (IoC) Tracks Dependencies (Services) and Registers to Controllers and Modules
