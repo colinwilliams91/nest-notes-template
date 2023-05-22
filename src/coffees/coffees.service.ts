@@ -14,6 +14,7 @@ import { Coffee } from './entities/coffee.entity';
 import { Flavor } from './entities/flavor.entity';
 import { Event } from '../events/entities/event.entity/event.entity';
 import { COFFEE_BRANDS } from './coffees.constants';
+import { ConfigService } from '@nestjs/config';
 
 /* `this.coffees` is placeholder for DB Table  */
 
@@ -25,9 +26,17 @@ export class CoffeesService {
     @InjectRepository(Flavor)
     private readonly flavorRepository: Repository<Flavor>,
     private readonly dataSource: DataSource,
+    private readonly configService: ConfigService,
+    // @Inject(coffeesConfig.KEY) // <-- Inject entire Config Object with namespace KEY
+    // private readonly coffeesConfiguration: ConfigType<typeof coffeesConfig> // <-- infer Object Type Safety best practice
     @Inject(COFFEE_BRANDS) coffeeBrands: string[],
   ) {
-    console.log(coffeeBrands);
+    const databaseHost = this.configService.get<string>(
+      'DATABASE_HOST',
+      'localhost', // <-- second argument is default paramater
+    );
+    const databaseUser = this.configService.get<string>('DATABASE_USER');
+    console.log(`${databaseUser} Database is hosted @ ${databaseHost}`);
   }
 
   findAll(paginationQuery: PaginationQueryDto) {
