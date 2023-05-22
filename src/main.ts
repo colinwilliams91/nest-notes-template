@@ -33,7 +33,7 @@ async function bootstrap() {
   // app.setBaseViewsDir(join(__dirname, '..', 'views')); // <-- for `index.html` / views (components?)
   // app.setViewEngine('hbs');
   app.useGlobalFilters(new HttpExceptionFilter()); // <-- apply `filters/http-exception/http-exception.filter.ts` for global http requests
-  app.useGlobalGuards(new ApiKeyGuard()); // <-- apply global Guard here
+  // app.useGlobalGuards(new ApiKeyGuard()); // <-- apply global Guard here (only if Argument needs NO dependencies...)
   await app.listen(3000);
 }
 bootstrap(); // <-- Nest Inversion of Control (IoC) Tracks Dependencies (Services) and Registers to Controllers and Modules

@@ -2,6 +2,7 @@ import { Module, ValidationPipe } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CoffeesController } from './coffees/coffees.controller';
+import { CommonModule } from './common/common.module';
 import { DatabaseModule } from './database/database.module';
 import { CoffeeRatingModule } from './coffee-rating/coffee-rating.module';
 import { CoffeesModule } from './coffees/coffees.module';
@@ -76,6 +77,7 @@ import { CoffeesController } from './coffees/coffees.controller';
     }),
     CoffeeRatingModule,
     DatabaseModule,
+    CommonModule,
   ],
   controllers: [
     AppController,
