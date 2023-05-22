@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { CoffeesController } from './coffees/coffees.controller';
 import { CoffeesModule } from './coffees/coffees.module';
 import { CoffeesService } from './coffees/coffees.service';
+import { ConfigModule } from '@nestjs/config';
 
 /*
  * the @Module Decorator provides metadata responsible for organizing application structure
@@ -35,7 +36,7 @@ import { CoffeesController } from './coffees/coffees.controller';
 
 /* <-- `@Global()` Decorator would go here */
 @Module({
-  imports: [CoffeesModule],
+  imports: [ConfigModule.forRoot(), CoffeesModule],
   controllers: [
     AppController,
   ] /* <-- instantiate consumer/router of service classes encapsulated by this module */,
