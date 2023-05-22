@@ -34,6 +34,7 @@ async function bootstrap() {
   // app.useStaticAssets(join(__dirname, '..', 'public')); // <-- for shared image/static assets
   // app.setBaseViewsDir(join(__dirname, '..', 'views')); // <-- for `index.html` / views (components?)
   // app.setViewEngine('hbs');
+
   app.useGlobalFilters(new HttpExceptionFilter()); // <-- apply `filters/http-exception/http-exception.filter.ts` for global http requests
   // app.useGlobalGuards(new ApiKeyGuard()); // <-- apply global Guard here (only if Argument needs NO dependencies...)
   app.useGlobalInterceptors(

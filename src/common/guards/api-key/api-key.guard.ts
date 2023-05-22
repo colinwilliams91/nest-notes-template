@@ -26,7 +26,7 @@ export class ApiKeyGuard implements CanActivate {
     }
     const request = context.switchToHttp().getRequest<Request>(); // Request from Fetch API (might need to be from express...)
     const authHeader = request.header('Authorization');
-    return authHeader === this.configService.get('API_KEY');
+    return authHeader === this.configService.get('API_KEY'); // ** <-- THIS IS BEST PRACTICE FOR .ENV ACCESS
     // return authHeader === process.env.API_KEY; // <-- same as above, but raw .env syntax w/o `configService.get()` (less safe)
   }
 }
