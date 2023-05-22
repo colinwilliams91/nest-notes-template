@@ -1,6 +1,7 @@
 import {
   HttpException,
   HttpStatus,
+  Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -12,10 +13,11 @@ import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/paginati
 import { Coffee } from './entities/coffee.entity';
 import { Flavor } from './entities/flavor.entity';
 import { Event } from '../events/entities/event.entity/event.entity';
+import { COFFEE_BRANDS } from './coffees.constants';
 
 /* `this.coffees` is placeholder for DB Table  */
 
-@Injectable()
+@Injectable() // <-- Marks CoffeesService Class as a provider (metadata) (marked to be managed by Next IoC Container)
 export class CoffeesService {
   constructor(
     @InjectRepository(Coffee) // <-- Injects automatically generated Repository that sits on top of our Table
@@ -23,7 +25,10 @@ export class CoffeesService {
     @InjectRepository(Flavor)
     private readonly flavorRepository: Repository<Flavor>,
     private readonly dataSource: DataSource,
-  ) {}
+    @Inject(COFFEE_BRANDS) coffeeBrands: string[],
+  ) {
+    console.log(coffeeBrands);
+  }
 
   findAll(paginationQuery: PaginationQueryDto) {
     const { limit, offset } = paginationQuery;
