@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express'; // <-- to access underlying platform API
 import { ValidationPipe } from '@nestjs/common';
+import { HttpExceptionFilter } from './common/filters/http-exception/http-exception.filter';
 import { join } from 'path';
 
 /*
@@ -30,7 +31,12 @@ async function bootstrap() {
   // app.useStaticAssets(join(__dirname, '..', 'public')); // <-- for shared image/static assets
   // app.setBaseViewsDir(join(__dirname, '..', 'views')); // <-- for `index.html` / views (components?)
   // app.setViewEngine('hbs');
-
+  app.useGlobalFilters(new HttpExceptionFilter()); // <-- apply `filters/http-exception/http-exception.filter.ts` for global http requests
   await app.listen(3000);
 }
 bootstrap(); // <-- Nest Inversion of Control (IoC) Tracks Dependencies (Services) and Registers to Controllers and Modules
+
+/**
+ * Issue with setting up and Instantiating (`new`) `validationPipe({...})` in `main.ts`
+ * is it is outside any Module, therefore we CANNOT inject any dependencies here
+ */
