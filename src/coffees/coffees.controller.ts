@@ -6,6 +6,7 @@ import {
   HttpCode,
   HttpStatus,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Put,
@@ -56,9 +57,10 @@ export class CoffeesController {
   //     .send('This action returns via express exposed response library methods');
   // }
 
+  // pass custom created ParseIntPipe as `@Param()` injector to enforce integer validation of request
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.coffeesService.findOne(id);
+  findOne(@Param('id', ParseIntPipe) id: string) {
+    return this.coffeesService.findOne('' + id);
   }
 
   @Post()
