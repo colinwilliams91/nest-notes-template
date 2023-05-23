@@ -77,6 +77,12 @@ docker-compose up -d
 docker-compose down
 ```
 
+### Testing
+
+- `.spec.ts` spec files will reside in the same folder as the application source code files that they test.
+- each controller, provider, service, etc will have it's own test/spec file (mostly tests Classes and Functions).
+- for e-2-e tests (`.e2e-spec.ts`) are located in dedicated /test directory grouped by the feature/functionality that they test. (high level validation of entire system, closer to user experience @ production level)
+
 # Contribution
 
 ## Installation

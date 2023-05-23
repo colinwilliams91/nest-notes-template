@@ -19,9 +19,9 @@ import {
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto/update-coffee.dto';
-import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/pagination-query.dto';
-import { Public } from 'src/common/decorators/public.decorator';
-import { ApiForbiddenResponse, ApiTags } from '@nestjs/swagger'; // <-- Can use `@ApiResponse({...})` decprator for generic
+import { PaginationQueryDto } from '../common/dto/pagination-query.dto/pagination-query.dto';
+import { Public } from '../common/decorators/public.decorator';
+import { ApiForbiddenResponse, ApiTags } from '@nestjs/swagger'; // <-- Can use `@ApiResponse({...})` decorator for generic
 
 // @UsePipes() <-- pass single Pipe Class, comma separated list of Pipe Classes,
 // or `new ValidationPipe({...}) for specific scenario Pipes (inside features, etc)
