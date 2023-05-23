@@ -21,12 +21,13 @@ import { CreateCoffeeDto } from './dto/create-coffee.dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto/update-coffee.dto';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/pagination-query.dto';
 import { Public } from 'src/common/decorators/public.decorator';
+import { ApiForbiddenResponse, ApiTags } from '@nestjs/swagger'; // <-- Can use `@ApiResponse({...})` decprator for generic
 
 // @UsePipes() <-- pass single Pipe Class, comma separated list of Pipe Classes,
 // or `new ValidationPipe({...}) for specific scenario Pipes (inside features, etc)
 // (best practice use Class instead of `new` Instantiations for memory useage and re-usability)
 // can be used for Controller Classes OR Route Handlers/Methods!
-
+@ApiTags('coffees') // <-- groups all endpoints @ Controller Scope (can also Decorate @ method level) in Swagger UI
 @Controller('coffees') // <-- Service Injection occurs in Constructor
 export class CoffeesController {
   constructor(private readonly coffeesService: CoffeesService) {} // <-- requesting CoffeesService here (Nest Injection)
@@ -39,6 +40,7 @@ export class CoffeesController {
   // @SetMetadata('isPublic', true) // <-- set "custom metadata" to route handlers: @SetMetadata('key', 'value') (modular in common/decorators)
   @Get()
   @Public()
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
   findAll(@Query() paginationQuery: PaginationQueryDto) {
     // const { limit, offset } = paginationQuery;
     return this.coffeesService.findAll(paginationQuery);

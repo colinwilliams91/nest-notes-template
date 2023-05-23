@@ -4,10 +4,11 @@ import { NestExpressApplication } from '@nestjs/platform-express'; // <-- to acc
 import { ValidationPipe } from '@nestjs/common';
 import { HttpExceptionFilter } from './common/filters/http-exception/http-exception.filter';
 import { ApiKeyGuard } from './common/guards/api-key/api-key.guard';
-import { join } from 'path';
 import { WrapResponseInterceptor } from './common/interceptors/wrap-response/wrap-response.interceptor';
 import { TimeoutInterceptor } from './common/interceptors/timeout/timeout.interceptor';
 
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { join } from 'path';
 /*
  * the entry file of the application which uses the core function NestFactory to create a Nest application instance
  * below function exposes a few static methods allowing creation of application instance
@@ -30,6 +31,15 @@ async function bootstrap() {
       },
     }),
   ); // <-- enforces validation rules for all incoming client Payloads automatically (body shapes)
+
+  /* Define API documentation specification */
+  const options = new DocumentBuilder()
+    .setTitle('Secret-Stories')
+    .setDescription('Competitive Creative Writing Multiplayer Web Game')
+    .setVersion('1.0')
+    .build(); // <-- builds API documentation UI
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup('api', app, document); // <-- appends to url (ex: localhost:3000/api) and serves
 
   // app.useStaticAssets(join(__dirname, '..', 'public')); // <-- for shared image/static assets
   // app.setBaseViewsDir(join(__dirname, '..', 'views')); // <-- for `index.html` / views (components?)
