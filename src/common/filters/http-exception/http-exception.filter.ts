@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { Response } from 'express';
 
+/* (Handle and Process unhandled exceptions) */
 /**
  * We set this Http Exception Filter in `common` directory to be re-used
  * anywhere that an Http request is being sent. It will validate and throw
