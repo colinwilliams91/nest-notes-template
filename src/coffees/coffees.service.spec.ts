@@ -112,4 +112,4 @@ describe('CoffeesService', () => {
 //   { provide: getRepositoryToken(Coffee), useValue: {} }, // 👈
 // ]
 
-// ** use `.resolve()` method instead of `get()` to retrieve Request or Transiet Scoped providers
+// ** use `.resolve()` method instead of `.get()` to retrieve Request or Transiet Scoped providers

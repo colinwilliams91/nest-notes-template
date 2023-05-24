@@ -21,6 +21,7 @@ import { join } from 'path';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule); // <-- Type allows exclusive Express methods
+
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true, // <-- transforms DTOs properties datatypes to intended types (defaults transfer as Strings if not)
