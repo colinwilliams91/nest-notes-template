@@ -7,6 +7,12 @@ import {
 import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators'; // **
 
+/**
+ * (Binds extra logic *before* and *after* method execution)
+ * (Transforms returned result from a method)
+ * (CAN completely override a method)
+ */
+
 @Injectable()
 export class WrapResponseInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
